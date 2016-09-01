@@ -1,0 +1,24 @@
+{
+  "CanContainContent": false,
+  "Category": "Other",
+  "CreatedBy": "",
+  "CreatedByURL": "",
+  "Description": "",
+  "DocsURL": "",
+  "EnabledByDefault": false,
+  "FileVersion": 3,
+  "FriendlyName": "StepVrPlugin",
+  "Installed": false,
+  "IsBetaVersion": false,
+  "MarketplaceURL": "",
+  "Modules": [
+    {
+      "Name": "StepVrPlugin",
+      "Type": "RunTime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "SupportURL": "",
+  "Version": 1,
+  "VersionName": "1.0"
+}
