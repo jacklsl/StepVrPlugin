@@ -1,7 +1,9 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
+#include "../Launch/Resources/Version.h"
 #include "StepVrInputState.h"
 #include "StepVrPluginPrivatePCH.h"
+
 
 
 
@@ -33,7 +35,15 @@ public:
 	//ImotionController Delegate
 
 	virtual bool GetControllerOrientationAndPosition(const int32 ControllerIndex, const EControllerHand DeviceHand, FRotator& OutOrientation, FVector& OutPosition) const;
-	virtual ETrackingStatus GetControllerTrackingStatus(const int32 ControllerIndex, const EControllerHand DeviceHand) const;
+
+
+#if(AFTER_ENGINEVERSION_410)
+	virtual ETrackingStatus GetControllerTrackingStatus(const int32 ControllerIndex, const EControllerHand DeviceHand) const
+	{
+		return ETrackingStatus::NotTracked;
+	}
+#endif
+
 private:
 	void StartModule();
 protected:
