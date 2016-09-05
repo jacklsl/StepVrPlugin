@@ -187,11 +187,11 @@ bool FStepVrInput::GetControllerOrientationAndPosition(const int32 ControllerInd
 	return true;
 }
 
-ETrackingStatus FStepVrInput::GetControllerTrackingStatus(const int32 ControllerIndex, const EControllerHand DeviceHand) const
-{
-	ETrackingStatus TrackingStatus = ETrackingStatus::NotTracked;
-	return TrackingStatus;
-}
+// ETrackingStatus FStepVrInput::GetControllerTrackingStatus(const int32 ControllerIndex, const EControllerHand DeviceHand) const
+// {
+// 	ETrackingStatus TrackingStatus = ETrackingStatus::NotTracked;
+// 	return TrackingStatus;
+// }
 
 void FStepVrInput::StartModule()
 {
@@ -222,17 +222,17 @@ void FStepVrInput::StartModule()
 
 
 	//add key binding
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_GunBtn_A_Trigger, LOCTEXT("StepVR_GunBtn_A_Trigger", "StepVR_GunBtn_A_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_GunBtn_B_Trigger, LOCTEXT("StepVR_GunBtn_B_Trigger", "StepVR_GunBtn_B_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_GunBtn_C_Trigger, LOCTEXT("StepVR_GunBtn_C_Trigger", "StepVR_GunBtn_C_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_GunBtn_A_Trigger, LOCTEXT("StepVR_GunBtn_A_Trigger", "StepVR_GunBtn_A_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_GunBtn_B_Trigger, LOCTEXT("StepVR_GunBtn_B_Trigger", "StepVR_GunBtn_B_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_GunBtn_C_Trigger, LOCTEXT("StepVR_GunBtn_C_Trigger", "StepVR_GunBtn_C_Trigger"), FKeyDetails::GamepadKey));
 
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_LeftBtn_A_Trigger, LOCTEXT("StepVR_LeftBtn_A_Trigger", "StepVR_LeftBtn_A_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_LeftBtn_B_Trigger, LOCTEXT("StepVR_LeftBtn_B_Trigger", "StepVR_LeftBtn_B_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_LeftBtn_C_Trigger, LOCTEXT("StepVR_LeftBtn_C_Trigger", "StepVR_LeftBtn_C_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_LeftBtn_A_Trigger, LOCTEXT("StepVR_LeftBtn_A_Trigger", "StepVR_LeftBtn_A_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_LeftBtn_B_Trigger, LOCTEXT("StepVR_LeftBtn_B_Trigger", "StepVR_LeftBtn_B_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_LeftBtn_C_Trigger, LOCTEXT("StepVR_LeftBtn_C_Trigger", "StepVR_LeftBtn_C_Trigger"), FKeyDetails::GamepadKey));
 
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_RightBtn_A_Trigger, LOCTEXT("StepVR_RightBtn_A_Trigger", "StepVR_RightBtn_A_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_RightBtn_B_Trigger, LOCTEXT("StepVR_RightBtn_B_Trigger", "StepVR_RightBtn_B_Trigger"), FKeyDetails::GamepadKey));
-	EKeys::AddKey(FKeyDetails(FStepVRCapacitiveKey::StepVR_RightBtn_C_Trigger, LOCTEXT("StepVR_RightBtn_C_Trigger", "StepVR_RightBtn_C_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_RightBtn_A_Trigger, LOCTEXT("StepVR_RightBtn_A_Trigger", "StepVR_RightBtn_A_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_RightBtn_B_Trigger, LOCTEXT("StepVR_RightBtn_B_Trigger", "StepVR_RightBtn_B_Trigger"), FKeyDetails::GamepadKey));
+	EKeys::AddKey(FKeyDetails(ButtonState.MyKey.StepVR_RightBtn_C_Trigger, LOCTEXT("StepVR_RightBtn_C_Trigger", "StepVR_RightBtn_C_Trigger"), FKeyDetails::GamepadKey));
 }
 
 #undef LOCTEXT_NAMESPACE

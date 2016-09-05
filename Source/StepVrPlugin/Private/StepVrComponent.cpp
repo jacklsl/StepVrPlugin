@@ -32,10 +32,9 @@ void UStepVrComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, 
 	}
 
 	/**  标准件标准信息  */
-// 	GetNodeTransForm(CurrentNodeState.FLeftHand, 1);
-// 	GetNodeTransForm(CurrentNodeState.FRightHand, 2);
-// 	GetNodeTransForm(CurrentNodeState.FGun, 4);
-// 	GetNodeTransForm(CurrentNodeState.FHead, 6);
+//  	GetNodeTransForm(CurrentNodeState.FLeftHand, 1);
+//  	GetNodeTransForm(CurrentNodeState.FRightHand, 2);
+//  	GetNodeTransForm(CurrentNodeState.FHead, 5);
 
 //Han Guo ID
 	GetNodeTransForm(CurrentNodeState.FLeftHand,1);

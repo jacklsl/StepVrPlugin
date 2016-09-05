@@ -5,7 +5,7 @@
   "CreatedByURL": "",
   "Description": "",
   "DocsURL": "",
-  "EnabledByDefault": true,
+  "EnabledByDefault": false,
   "FileVersion": 3,
   "FriendlyName": "StepVrPlugin",
   "Installed": false,
