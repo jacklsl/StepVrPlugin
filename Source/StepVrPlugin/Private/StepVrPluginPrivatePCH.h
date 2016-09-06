@@ -13,4 +13,8 @@
 #include "LocalDefine.h"
 #include "StepVr.h"
 
+//Local point
 extern StepVR::Manager* StepManager;
+
+//check StepVrManger
+extern bool StepManagerIsEnable();

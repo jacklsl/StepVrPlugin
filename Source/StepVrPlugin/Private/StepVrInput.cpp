@@ -10,7 +10,13 @@
 
 StepVR::Manager* StepManager = nullptr;
 
-bool EquipIsVaild(StepVR::Frame& Frame,StepVR::SingleNode::NodeID EquipId);
+
+bool StepManagerIsEnable()
+{
+	return StepManager ? true : false;
+}
+
+
 bool EquipIsVaild(StepVR::Frame& Frame, StepVR::SingleNode::NodeID EquipId)
 {
 	StepVR::Vector3f vec3 = Frame.GetSingleNode().GetPosition(EquipId);
@@ -52,6 +58,7 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 
 	dBtnRepeatTime = 0.15f;
 	IModularFeatures::Get().RegisterModularFeature(GetModularFeatureName(), this);
+	GEngine->MotionControllerDevices.AddUnique(this);
 
 	UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Open Success!"));
 }
@@ -63,7 +70,7 @@ FStepVrInput::~FStepVrInput()
 		FPlatformProcess::FreeDllHandle(dllHandle);
 	}
 
-	if (StepManager)
+	if (StepManagerIsEnable())
 	{
 		delete StepManager;
 		StepManager = nullptr;
@@ -80,7 +87,7 @@ void FStepVrInput::Tick(float DeltaTime)
 
 void FStepVrInput::SendControllerEvents()
 {
-	if (!StepManager)
+	if (!StepManagerIsEnable())
 	{
 		return;
 	}
@@ -105,9 +112,9 @@ void FStepVrInput::SendControllerEvents()
 			flag = 0x0;
 
 			//°´¼ü×´Ì¬
-			flag = (tmp.GetSingleNode().GetKeyUp(device.EquipId, (StepVR::SingleNode::KeyID)(j + 1)) ? SButton_Release : 0x0) | flag;
-			flag = (tmp.GetSingleNode().GetKeyDown(device.EquipId, (StepVR::SingleNode::KeyID)(j + 1)) ? SButton_Press : 0x0) | flag;
-			flag = (tmp.GetSingleNode().GetKey(device.EquipId, (StepVR::SingleNode::KeyID)(j + 1)) ? SButton_Repeat : 0x0) | flag;
+			flag = (tmp.GetSingleNode().GetKeyUp(device.EquipId, SDKKEYID(j + 1)) ? SButton_Release : 0x0) | flag;
+			flag = (tmp.GetSingleNode().GetKeyDown(device.EquipId, SDKKEYID(j + 1)) ? SButton_Press : 0x0) | flag;
+			flag = (tmp.GetSingleNode().GetKey(device.EquipId, SDKKEYID(j + 1)) ? SButton_Repeat : 0x0) | flag;
 
 			
 			if (flag != btnState.PressedState)
@@ -155,7 +162,7 @@ void FStepVrInput::SetChannelValues(int32 ControllerId, const FForceFeedbackValu
 
 bool FStepVrInput::GetControllerOrientationAndPosition(const int32 ControllerIndex, const EControllerHand DeviceHand, FRotator& OutOrientation, FVector& OutPosition) const
 {
-	if (!StepManager)
+	if (!StepManagerIsEnable())
 	{
 		return false;
 	}
@@ -171,8 +178,8 @@ bool FStepVrInput::GetControllerOrientationAndPosition(const int32 ControllerInd
 
  	StepVR::Vector3f vec3 = StepVR::StepVR_EnginAdaptor::toUserEuler(vec4);
  	OutOrientation.Yaw = vec3.x;
- 	OutOrientation.Pitch = vec3.y;
- 	OutOrientation.Roll = vec3.z;
+ 	OutOrientation.Pitch = -vec3.y;
+ 	OutOrientation.Roll = -vec3.z;
 
 	//UE_LOG(LogTemp, Warning, TEXT("euqipID:%d,Yaw:%f,Pitch:%f,roll:%f"), (int32)ButtonState.Devices[(int32)DeviceHand].EquipId,OutOrientation.Yaw,OutOrientation.Pitch,OutOrientation.Roll);
 
