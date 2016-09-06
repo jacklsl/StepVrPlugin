@@ -32,10 +32,8 @@ void UStepVrComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, 
 		return;
 	}
 
-	GetNodeTransForm(CurrentNodeState.FLeftHand,StepVrInfo::DLeftHand);
-	GetNodeTransForm(CurrentNodeState.FRightHand, StepVrInfo::DRightHand);
-	GetNodeTransForm(CurrentNodeState.FLeftAnkle, StepVrInfo::DLeftAnkle);
-	GetNodeTransForm(CurrentNodeState.FRightAnkle, StepVrInfo::DLeftAnkle);
+	GetNodeTransForm(CurrentNodeState.FLeftHand,StepVrInfo::DLeftController);
+	GetNodeTransForm(CurrentNodeState.FRightHand, StepVrInfo::DRightController);
 	GetNodeTransForm(CurrentNodeState.FHead, StepVrInfo::DHead);
 	GetNodeTransForm(CurrentNodeState.FGun, StepVrInfo::DGun);
 }
