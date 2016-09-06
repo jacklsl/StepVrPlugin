@@ -25,15 +25,9 @@ namespace StepVrInfo {
 	//standard component ID
 	enum StepVrNodeId {
 		//Node Id
-		DLeftHand = 1,
-		DRightHand = 2,
-		DLeftAnkle = 3,
-		DRightAnkle = 4,
-		DGun = 5,
+		DLeftController = 1,
+		DRightController = 2,
+		DGun = 4,
 		DHead = 6,
-
-		//Shank
-		DLeftHandShank = 7,
-		DRightHandShank = 8,
 	};
 }

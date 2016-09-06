@@ -6,7 +6,7 @@
 
 
 #define StepVrNodeCateGory StepVrNode
-#define StepVrClassGroup   StepVr
+#define StepVrClassGroup   Stepvrcomponent
 
 USTRUCT(BlueprintType)
 struct FStepVRNode

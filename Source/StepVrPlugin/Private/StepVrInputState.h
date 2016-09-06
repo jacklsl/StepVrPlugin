@@ -90,15 +90,14 @@ struct FStepVrStateController
 		//≥ı ºªØ
 		FStepVrButtonState btn;
 
-		Devices[(int32)EStepVrDeviceId::DLeft].EquipId = SDKNODEID((int32)StepVrInfo::DLeftHand);
-		btn.key = MyKey.StepVR_LeftBtn_A_Trigger.GetFName();
+		Devices[(int32)EStepVrDeviceId::DLeft].EquipId = SDKNODEID((int32)StepVrInfo::DLeftController);
 		Devices[(int32)EStepVrDeviceId::DLeft].TBtnKey.Add(btn);
 		btn.key = MyKey.StepVR_LeftBtn_B_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::DLeft].TBtnKey.Add(btn);
 		btn.key = MyKey.StepVR_LeftBtn_C_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::DLeft].TBtnKey.Add(btn);
 
-		Devices[(int32)EStepVrDeviceId::Dright].EquipId = SDKNODEID((int32)StepVrInfo::DRightHand);
+		Devices[(int32)EStepVrDeviceId::Dright].EquipId = SDKNODEID((int32)StepVrInfo::DRightController);
 		btn.key = MyKey.StepVR_RightBtn_A_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::Dright].TBtnKey.Add(btn);
 		btn.key = MyKey.StepVR_RightBtn_B_Trigger.GetFName();
@@ -106,7 +105,7 @@ struct FStepVrStateController
 		btn.key = MyKey.StepVR_RightBtn_C_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::Dright].TBtnKey.Add(btn);
 
-		Devices[(int32)EStepVrDeviceId::DGun].EquipId = SDKNODEID((int32)StepVrInfo::DRightAnkle);
+		Devices[(int32)EStepVrDeviceId::DGun].EquipId = SDKNODEID((int32)StepVrInfo::DGun);
 		btn.key = MyKey.StepVR_GunBtn_A_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::DGun].TBtnKey.Add(btn);
 		btn.key = MyKey.StepVR_GunBtn_B_Trigger.GetFName();
