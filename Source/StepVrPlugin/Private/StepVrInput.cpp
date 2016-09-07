@@ -58,8 +58,11 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 
 	dBtnRepeatTime = 0.15f;
 	IModularFeatures::Get().RegisterModularFeature(GetModularFeatureName(), this);
-	GEngine->MotionControllerDevices.AddUnique(this);
 
+#if (BEFOPRE_ENGINEVERSION_412)
+	GEngine->MotionControllerDevices.AddUnique(this);
+#endif
+	
 	UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Open Success!"));
 }
 
