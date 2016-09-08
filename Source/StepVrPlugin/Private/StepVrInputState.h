@@ -91,6 +91,7 @@ struct FStepVrStateController
 		FStepVrButtonState btn;
 
 		Devices[(int32)EStepVrDeviceId::DLeft].EquipId = SDKNODEID((int32)StepVrInfo::DLeftController);
+		btn.key = MyKey.StepVR_LeftBtn_A_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::DLeft].TBtnKey.Add(btn);
 		btn.key = MyKey.StepVR_LeftBtn_B_Trigger.GetFName();
 		Devices[(int32)EStepVrDeviceId::DLeft].TBtnKey.Add(btn);
