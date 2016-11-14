@@ -14,6 +14,9 @@ struct FStepVRNode
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	FTransform FHeadForOculus;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
 	FTransform FHead;
 	 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
@@ -45,6 +48,9 @@ class STEPVRPLUGIN_API UStepVrComponent : public UActorComponent
 public:
 	UStepVrComponent();
 
+	UFUNCTION(BlueprintCallable,Category = StepVrNodeCateGory)
+	void ResetHMDForStepVr();
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
@@ -56,6 +62,12 @@ public:
 
 	bool IsEnable();
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = node)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
 	FStepVRNode CurrentNodeState;
+
+private:
+	void ResetControllPawnRotation();
+	void ResetOculusRif();
+	bool IsReset;
+	static bool IsResetOculus;
 };

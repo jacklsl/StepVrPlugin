@@ -29,7 +29,6 @@
 #endif
 
 namespace StepVR {
-	// Forward declaration
 	class Manager;
 	class Frame;
 	class WholeBody;
@@ -38,22 +37,20 @@ namespace StepVR {
 	STEPVR_API enum BoneName{
 		BONE_NON = 0,
 		BONE_START,
-		Bone_Sacrum,     // 骶骨(臀部)
-		Bone_Lumbar,     // 腰椎骨
-		Bone_Thoracic,     // 胸椎骨
-		Bone_Cervical,     // 颈椎骨
-		Bone_Skull,     // 头骨
-
+		Bone_Sacrum,     
+		Bone_Lumbar,     
+		Bone_Thoracic,   
+		Bone_Cervical,   
+		Bone_Skull,
 		Bone_LeftHand,
 		Bone_LeftForearm,
 		Bone_LeftUpperArm,
-		Bone_LeftClavicle, // 锁骨
+		Bone_LeftClavicle, 
 		Bone_RightHand,
 		Bone_RightForearm,
 		Bone_RightUpperArm,
 		Bone_RightClavicle,
-
-		Bone_LeftPelvis,   // 骨盆
+		Bone_LeftPelvis,   
 		Bone_LeftThigh,
 		Bone_LeftShank,
 		Bone_LeftFoot,
@@ -68,12 +65,12 @@ namespace StepVR {
 		JOINT_NON = 0,
 		JOINT_START,
 
-		Joint_CoH,      // Centre of Hip，骶骨(臀部)下关节点
-		Joint_S1,       // 骶骨(臀部)上关节点，腰椎骨下关节点
-		Joint_L1,       // 腰椎骨上关节点，胸椎骨下关节点
-		Joint_T1,       // 胸椎骨上关节点，颈椎骨下关节点
-		Joint_C1,       // 颈椎骨上关节点，头骨下关节点
-		Joint_Vertex,   // 头骨上顶端
+		Joint_CoH,      
+		Joint_S1,       
+		Joint_L1,       
+		Joint_T1,       
+		Joint_C1,       
+		Joint_Vertex,   
 
 		Joint_LeftShoulder,
 		Joint_LeftElbow,
@@ -178,126 +175,6 @@ namespace StepVR {
 		int HeadBase4Frequency;
 		int WeaponBase4Frequency;
 
-		int LeftWristBase5Frequency;
-		int RightWristBase5Frequency;
-		int LeftAnkleBase5Frequency;
-		int RightAnkleBase5Frequency;
-		int NeckBase5Frequency;
-		int LeftUpperArmBase5Frequency;
-		int RightUpperArmBase5Frequency;
-		int HeadBase5Frequency;
-		int WeaponBase5Frequency;
-
-		int LeftWristBase6Frequency;
-		int RightWristBase6Frequency;
-		int LeftAnkleBase6Frequency;
-		int RightAnkleBase6Frequency;
-		int NeckBase6Frequency;
-		int LeftUpperArmBase6Frequency;
-		int RightUpperArmBase6Frequency;
-		int HeadBase6Frequency;
-		int WeaponBase6Frequency;
-
-		int LeftWristBase7Frequency;
-		int RightWristBase7Frequency;
-		int LeftAnkleBase7Frequency;
-		int RightAnkleBase7Frequency;
-		int NeckBase7Frequency;
-		int LeftUpperArmBase7Frequency;
-		int RightUpperArmBase7Frequency;
-		int HeadBase7Frequency;
-		int WeaponBase7Frequency;
-
-		int LeftWristBase8Frequency;
-		int RightWristBase8Frequency;
-		int LeftAnkleBase8Frequency;
-		int RightAnkleBase8Frequency;
-		int NeckBase8Frequency;
-		int LeftUpperArmBase8Frequency;
-		int RightUpperArmBase8Frequency;
-		int HeadBase8Frequency;
-		int WeaponBase8Frequency;
-
-		int LeftWristBase9Frequency;
-		int RightWristBase9Frequency;
-		int LeftAnkleBase9Frequency;
-		int RightAnkleBase9Frequency;
-		int NeckBase9Frequency;
-		int LeftUpperArmBase9Frequency;
-		int RightUpperArmBase9Frequency;
-		int HeadBase9Frequency;
-		int WeaponBase9Frequency;
-
-		int LeftWristBase10Frequency;
-		int RightWristBase10Frequency;
-		int LeftAnkleBase10Frequency;
-		int RightAnkleBase10Frequency;
-		int NeckBase10Frequency;
-		int LeftUpperArmBase10Frequency;
-		int RightUpperArmBase10Frequency;
-		int HeadBase10Frequency;
-		int WeaponBase10Frequency;
-
-		int LeftWristBase11Frequency;
-		int RightWristBase11Frequency;
-		int LeftAnkleBase11Frequency;
-		int RightAnkleBase11Frequency;
-		int NeckBase11Frequency;
-		int LeftUpperArmBase11Frequency;
-		int RightUpperArmBase11Frequency;
-		int HeadBase11Frequency;
-		int WeaponBase11Frequency;
-
-		int LeftWristBase12Frequency;
-		int RightWristBase12Frequency;
-		int LeftAnkleBase12Frequency;
-		int RightAnkleBase12Frequency;
-		int NeckBase12Frequency;
-		int LeftUpperArmBase12Frequency;
-		int RightUpperArmBase12Frequency;
-		int HeadBase12Frequency;
-		int WeaponBase12Frequency;
-
-		int LeftWristBase13Frequency;
-		int RightWristBase13Frequency;
-		int LeftAnkleBase13Frequency;
-		int RightAnkleBase13Frequency;
-		int NeckBase13Frequency;
-		int LeftUpperArmBase13Frequency;
-		int RightUpperArmBase13Frequency;
-		int HeadBase13Frequency;
-		int WeaponBase13Frequency;
-
-		int LeftWristBase14Frequency;
-		int RightWristBase14Frequency;
-		int LeftAnkleBase14Frequency;
-		int RightAnkleBase14Frequency;
-		int NeckBase14Frequency;
-		int LeftUpperArmBase14Frequency;
-		int RightUpperArmBase14Frequency;
-		int HeadBase14Frequency;
-		int WeaponBase14Frequency;
-
-		int LeftWristBase15Frequency;
-		int RightWristBase15Frequency;
-		int LeftAnkleBase15Frequency;
-		int RightAnkleBase15Frequency;
-		int NeckBase15Frequency;
-		int LeftUpperArmBase15Frequency;
-		int RightUpperArmBase15Frequency;
-		int HeadBase15Frequency;
-		int WeaponBase15Frequency;
-
-		int LeftWristBase16Frequency;
-		int RightWristBase16Frequency;
-		int LeftAnkleBase16Frequency;
-		int RightAnkleBase16Frequency;
-		int NeckBase16Frequency;
-		int LeftUpperArmBase16Frequency;
-		int RightUpperArmBase16Frequency;
-		int HeadBase16Frequency;
-		int WeaponBase16Frequency;
-
 		int ParseFrequency;
 	};
 
@@ -310,10 +187,10 @@ namespace StepVR {
 	*/
 	STEPVR_API struct Vector3f
 	{
-		float x;  /* The x component of Vector3f. */
-		float y;  /* The y component of Vector3f. */
-		float z;  /* The z component of Vector3f. */
-
+		float x;  
+		float y;  
+		float z;  
+		Vector3f(){};
 		/**
 		* Creates a new Vector with all components set to specified values.
 		*
@@ -331,10 +208,10 @@ namespace StepVR {
 	*/
 	STEPVR_API struct Vector4f
 	{
-		float w;  /* The w component of Vector4f. */
-		float x;  /* The x component of Vector4f. */
-		float y;  /* The y component of Vector4f. */
-		float z;  /* The z component of Vector4f. */
+		float w;
+		float x;
+		float y;
+		float z;
 
 		/**
 		* Creates a new Vector with all components set to specified values.
@@ -427,8 +304,7 @@ namespace StepVR {
 		* @since 1.0
 		**/
 		STEPVR_API Vector3f GetRotation(SkeletonID id, Engine engine);
-		//暂时未用到
-		STEPVR_API Vector3f GetRotation(SkeletonID id);
+		
 		/**
 		* The quaternion of a specified skeleton node relative to
 		* its parent node.
@@ -465,6 +341,16 @@ namespace StepVR {
 		**/
 		STEPVR_API enum NodeID
 		{
+			//手柄左ID是0x81
+			//手柄右ID是0x82
+			//枪是0x04
+			//头是0x06
+			//动捕背部0x0A
+			//动捕左手0x0B
+			//动捕右手0x0C
+			//动捕左脚0x0D
+			//动捕右脚0x0E
+
 			NodeID_LeftWrist = 1,
 			NodeID_RightWrist = 2,
 			NodeID_LeftAnkle = 3,
@@ -474,6 +360,11 @@ namespace StepVR {
 			NodeID_RightUpperArm = 7,
 			NodeID_Head = 8,
 			NodeID_Weapon = 9,
+			NodeID_Back = 10,
+			NodeID_McpLeftHand=11,
+			NodeID_McpRightHand=12,
+			NodeID_McpLeftFoot=13,
+			NodeID_McpRightFoot=14
 		};
 
 		/**
@@ -523,7 +414,6 @@ namespace StepVR {
 		* @since 1.0
 		**/
 		STEPVR_API Vector3f GetRotation(NodeID id, Engine engine);
-		STEPVR_API Vector3f GetRotation(NodeID id);
 
 		/**
 		* The quaternion of a specified node in the calibrated room.
@@ -611,24 +501,19 @@ namespace StepVR {
 	};
 
 	STEPVR_API struct Model{
-
-		float LenSacrum;         //  CoH  ->  S1
-		float LenLumbar;         //   S1  ->  L1    ;
-		float LenThoracic;       //   L1  ->  T1    ;
-		float LenCervical;       //   T1  ->  C1    ;
-		float LenSkull;          //   C1  ->  Vertex;
-		float LenPelvis;         //  CoH  ->  Hip  ;
-		float LenThigh;          //  Hip  ->  Knee ;
-		float LenShank;          // Knee  ->  Ankle;
-		float LenFoot;           //Ankle  ->  Toe Tip;
-		float LenClavicle;       //   T1     ->  Shoulder ;
-		float LenUpperArm;       //Shoulder  ->  Elbow ;
-		float LenForearm;        //  Elbow   ->  Wrist;
-		float LenHand;           //  Wrist   ->  Finger Tip;
-
-
-		//const Model& stretch(float rx = 1, float ry = 1, float rz = 1);
-		//Model();
+		float LenSacrum;         
+		float LenLumbar;         
+		float LenThoracic;       
+		float LenCervical;       
+		float LenSkull;          
+		float LenPelvis;         
+		float LenThigh;          
+		float LenShank;          
+		float LenFoot;           
+		float LenClavicle;       
+		float LenUpperArm;       
+		float LenForearm;        
+		float LenHand;          
 	};
 
 
@@ -652,8 +537,7 @@ namespace StepVR {
 	*
 	* @since 1.0
 	**/
-	STEPVR_API class Manager
-	{
+	STEPVR_API class Manager{
 	public:
 		/**
 		* Constructs a Manager object.
@@ -669,7 +553,19 @@ namespace StepVR {
 		*
 		* @since 1.0
 		**/
-		STEPVR_API bool Start(char* transmatfile = "TransMat.txt");
+		//************************************
+		// Method:    Start
+		// FullName:  StepVR::Manager::Start
+		// Access:    public 
+		// Returns:   STEPVR_API int.
+		//            0 is ok, 
+		//            1 is load matrix fail, 
+		//            2 is open port fail, 
+		//            3 is start thread fail.
+		// Qualifier:
+		// Parameter: char * transmatfile
+		//************************************
+		STEPVR_API int Start(char* transmatfile = "TransMat.txt");
 
 		/**
 		* Call Stop() function to stop capturing frames of tracking data.
@@ -716,10 +612,17 @@ namespace StepVR {
 		STEPVR_API bool StopReplayRawData();
 
 		STEPVR_API bool BindBone(unsigned POTNodeID, BoneName boneName);
-		STEPVR_API bool ResetBindBone();                                     //unbind all bone
+		STEPVR_API bool ResetBindBone();                                    
 		STEPVR_API Model GetModelInfo();
 		STEPVR_API void ScaleModel(float _xscale = 1.0f, float _yscale = 1.0f, float _zscale = 1.0f);
+		
+		STEPVR_API Vector3f GetRawP(int nodeid,int stationid);
 
+		STEPVR_API Vector3f GetVel(int nodeid);
+
+		STEPVR_API bool GetPortStatus();
+
+		STEPVR_API bool SendVibrateCmd(int objType, int nodeId, unsigned short usDuration=10, unsigned short usFreq=0);
 	};
 
 	STEPVR_API enum EulerOrd{
