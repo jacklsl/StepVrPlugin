@@ -43,7 +43,38 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 	}
 
 	//在对应版本引擎中需要矩阵文件，木有会崩溃
- 	bool StepStart = StepManager->Start();
+	//0 is ok, 
+	//1 is load matrix fail, 
+	//2 is open port fail, 
+	//3 is start thread fail.
+ 	bool StepStart = false;
+	switch (StepManager->Start())
+	{
+		case 0:
+		{
+			StepStart = true;
+			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Open Success!"));
+		}
+			break;
+		case 1:
+		{
+			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK load matrix fail!"));
+		}
+			break;
+		case 2:
+		{
+			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK open port fail!"));
+		}
+			break;
+		case 3:
+		{
+			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK start thread fail!"));
+		}
+			break;
+		default:
+			break;
+	}
+
  	if (!StepStart)
  	{
 		delete StepManager;
@@ -61,9 +92,7 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 
 #if (BEFOPRE_ENGINEVERSION_412)
 	GEngine->MotionControllerDevices.AddUnique(this);
-#endif
-	
-	UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Open Success!"));
+#endif	
 }
 
 FStepVrInput::~FStepVrInput()
