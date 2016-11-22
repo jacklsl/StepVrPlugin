@@ -27,3 +27,7 @@
 *.exp
 *.out
 *.app
+
+# Folder
+Binaries/
+Intermediate/

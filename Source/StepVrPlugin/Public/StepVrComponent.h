@@ -5,51 +5,54 @@
 #include "StepVrComponent.generated.h"
 
 
-#define StepVrNodeCateGory StepVrNode
-#define StepVrClassGroup   Stepvrcomponent
+#define StepvrLibrary
+#define StepvrClassGroup
 
 USTRUCT(BlueprintType)
 struct FStepVRNode
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FHeadForOculus;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FHead;
 	 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FGun;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FLeftHand;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FRightHand;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FLeftAnkle;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FRightAnkle;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FLeftUpperArm;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FTransform FRightUpperArm;
 };
 
-UCLASS(meta = (BlueprintSpawnableComponent), ClassGroup = StepVrClassGroup)
+UCLASS(meta = (BlueprintSpawnableComponent), ClassGroup = StepvrClassGroup)
 class STEPVRPLUGIN_API UStepVrComponent : public UActorComponent
 {
 	GENERATED_BODY()
 public:
 	UStepVrComponent();
 
-	UFUNCTION(BlueprintCallable,Category = StepVrNodeCateGory)
+	UFUNCTION(BlueprintCallable,Category = StepvrLibrary)
 	void ResetHMDForStepVr();
+
+	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
+	void GetNodeTransForm(FTransform& ts, int32 equipId) const;
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -58,11 +61,9 @@ public:
 
 	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-	bool GetNodeTransForm(FTransform& ts,uint32 equipId);
-
 	bool IsEnable();
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StepVrNodeCateGory)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FStepVRNode CurrentNodeState;
 
 private:

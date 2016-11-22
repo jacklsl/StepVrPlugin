@@ -1,9 +1,9 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #include "StepVrPluginPrivatePCH.h"
-#include "StepVrInput.h"
-#include "UnrealMathUtility.h"
 #include "../../../ThirdParty/include/StepVr.h"
+#include "UnrealMathUtility.h"
+#include "StepVrInput.h"
 
 
 #define LOCTEXT_NAMESPACE "StepVR"
@@ -16,15 +16,24 @@ bool StepManagerIsEnable()
 	return StepManager ? true : false;
 }
 
-
-bool EquipIsVaild(StepVR::Frame& Frame, StepVR::SingleNode::NodeID EquipId)
+void GetStepVrNodeTransform(FTransform& Transform,int32 EquipId)
 {
-	StepVR::Vector3f vec3 = Frame.GetSingleNode().GetPosition(EquipId);
-	if (vec3.x==0.f&&vec3.y==0.f&&vec3.z==0.f)
+	if (!StepManagerIsEnable())
 	{
-		return false;
+		return;
 	}
-	return true;
+
+	StepVR::Frame tmp = StepManager->GetFrame();
+
+	//通过设备id获取对应的定位信息
+	StepVR::Vector4f vec4 = tmp.GetSingleNode().GetQuaternion(SDKNODEID(EquipId));
+	vec4 = StepVR::StepVR_EnginAdaptor::toUserQuat(vec4);
+	Transform.SetRotation(FQuat(vec4.x, vec4.y, vec4.z, vec4.w));
+
+	//获取位置
+	StepVR::Vector3f vec3 = tmp.GetSingleNode().GetPosition(SDKNODEID(EquipId));
+	vec3 = StepVR::StepVR_EnginAdaptor::toUserPosition(vec3);
+	Transform.SetLocation(FVector(vec3.x * 100, vec3.y * 100, vec3.z * 100));
 }
 FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& InMessageHandler)
 	:MessageHandler(InMessageHandler)
@@ -33,12 +42,18 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 	StartModule();
 
  	
+	FString StepVRMessage[] = {
+		"StepvrSDK Open Success!",
+		"StepvrSDK Load Matrix Fail!",
+		"StepvrSDK Open Port Fail!",
+		"StepvrSDK Start Thread Fail!",
+		"StepvrSDK Creat Faild!" };
 
 	StepManager = new StepVR::Manager();
 
 	if (!StepManager)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("stepvrSDK open faild!"));
+		SHOWLOG(StepVRMessage[4]);
 		return;
 	}
 
@@ -47,42 +62,17 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 	//1 is load matrix fail, 
 	//2 is open port fail, 
 	//3 is start thread fail.
- 	bool StepStart = false;
-	switch (StepManager->Start())
-	{
-		case 0:
-		{
-			StepStart = true;
-			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Open Success!"));
-		}
-			break;
-		case 1:
-		{
-			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK load matrix fail!"));
-		}
-			break;
-		case 2:
-		{
-			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK open port fail!"));
-		}
-			break;
-		case 3:
-		{
-			UE_LOG(LogTemp, Warning, TEXT("stepvrSDK start thread fail!"));
-		}
-			break;
-		default:
-			break;
-	}
+	
+	int32 StartID = StepManager->Start();
+	SHOWLOG(StepVRMessage[StartID]);
 
- 	if (!StepStart)
+ 	if (0!= StartID)
  	{
 		delete StepManager;
 		StepManager = nullptr;
-
- 		UE_LOG(LogTemp, Warning, TEXT("stepvrSDK Start faild!"));
 		return;
  	}
+
 
 	StepVR::StepVR_EnginAdaptor::MapCoordinate(StepVR::Vector3f(0, 0, 1), StepVR::Vector3f(-1, 0, 0), StepVR::Vector3f(0, 1, 0));
 	StepVR::StepVR_EnginAdaptor::setEulerOrder(StepVR::EulerOrder_ZYX);
@@ -132,11 +122,6 @@ void FStepVrInput::SendControllerEvents()
 	for (int32 i = 0; i < (int32)EStepVrDeviceId::DTotalCount; i++)
 	{
 		FStepVrDeviceState& device = ButtonState.Devices[i];
-
-		if (!EquipIsVaild(tmp,device.EquipId))
-		{
-			continue;
-		}
 
 		for (int32 j = 0; j < device.TBtnKey.Num(); j++)
 		{
@@ -194,35 +179,14 @@ void FStepVrInput::SetChannelValues(int32 ControllerId, const FForceFeedbackValu
 
 bool FStepVrInput::GetControllerOrientationAndPosition(const int32 ControllerIndex, const EControllerHand DeviceHand, FRotator& OutOrientation, FVector& OutPosition) const
 {
-	if (!StepManagerIsEnable())
+	if ((int32)DeviceHand<0 || 
+		((int32)DeviceHand) >= (int32)EStepVrDeviceId::DTotalCount)
 	{
 		return false;
 	}
 
-	StepVR::Frame tmp = StepManager->GetFrame();
-	if (!EquipIsVaild(tmp, ButtonState.Devices[(int32)DeviceHand].EquipId))
-	{
-		return false;
-	}
-
-	//通过设备id获取对应的定位信息
-	StepVR::Vector4f vec4 = tmp.GetSingleNode().GetQuaternion(ButtonState.Devices[(int32)DeviceHand].EquipId);
-
- 	StepVR::Vector3f vec3 = StepVR::StepVR_EnginAdaptor::toUserEuler(vec4);
- 	OutOrientation.Yaw = vec3.x;
- 	OutOrientation.Pitch = -vec3.y;
- 	OutOrientation.Roll = -vec3.z;
-
-	//UE_LOG(LogTemp, Warning, TEXT("euqipID:%d,Yaw:%f,Pitch:%f,roll:%f"), (int32)ButtonState.Devices[(int32)DeviceHand].EquipId,OutOrientation.Yaw,OutOrientation.Pitch,OutOrientation.Roll);
-
-	//获取位置
-	vec3 = tmp.GetSingleNode().GetPosition(ButtonState.Devices[(int32)DeviceHand].EquipId);
-	vec3 = StepVR::StepVR_EnginAdaptor::toUserPosition(vec3);
- 	OutPosition.Z = vec3.z * 100;
- 	OutPosition.X = vec3.x * 100;
- 	OutPosition.Y = vec3.y * 100;
-
-	//UE_LOG(LogTemp, Warning, TEXT("x:%f,y:%f,z:%f"), OutPosition.X, OutPosition.Y, OutPosition.Z);
+	FTransform Transform;
+	GetStepVrNodeTransform(Transform, ButtonState.Devices[(int32)DeviceHand].EquipId);
 	return true;
 }
 

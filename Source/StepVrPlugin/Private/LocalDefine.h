@@ -2,7 +2,7 @@
 
 
 //GEngine->AddOnScreenDebugMessage(-1,delayTime, FColor::Blue,textConten)
-//UE_LOG(LogTemp, Warning, TEXT("plugin begin"));
+#define  SHOWLOG(_String_) UE_LOG(LogTemp, Warning, TEXT("%s"),*_String_)
 
 
 /************************************************************************/

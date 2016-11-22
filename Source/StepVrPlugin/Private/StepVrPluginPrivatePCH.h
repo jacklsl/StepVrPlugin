@@ -13,8 +13,11 @@
 #include "LocalDefine.h"
 #include "StepVr.h"
 
-//Local point
+//Get equipment transform with node id
+extern void GetStepVrNodeTransform(FTransform& Transform,int32 EquipId);
+
+//Local Manager controll
 extern StepVR::Manager* StepManager;
 
-//check StepVrManger
+//check StepVrManger isVaild
 extern bool StepManagerIsEnable();
