@@ -341,25 +341,15 @@ namespace StepVR {
 		**/
 		STEPVR_API enum NodeID
 		{
-			//手柄左ID是0x81
-			//手柄右ID是0x82
-			//枪是0x04
-			//头是0x06
-			//动捕背部0x0A
-			//动捕左手0x0B
-			//动捕右手0x0C
-			//动捕左脚0x0D
-			//动捕右脚0x0E
-
 			NodeID_LeftWrist = 1,
 			NodeID_RightWrist = 2,
 			NodeID_LeftAnkle = 3,
 			NodeID_RightAnkle = 4,
 			NodeID_Neck = 5,
-			NodeID_LeftUpperArm = 6,
-			NodeID_RightUpperArm = 7,
-			NodeID_Head = 8,
-			NodeID_Weapon = 9,
+			NodeID_Head = 6,//头部节点和
+			NodeID_LeftUpperArm = 7,
+			NodeID_RightUpperArm = 8,
+			NodeID_Weapon = 9,//武器节点
 			NodeID_Back = 10,
 			NodeID_McpLeftHand=11,
 			NodeID_McpRightHand=12,
@@ -623,6 +613,12 @@ namespace StepVR {
 		STEPVR_API bool GetPortStatus();
 
 		STEPVR_API bool SendVibrateCmd(int objType, int nodeId, unsigned short usDuration=10, unsigned short usFreq=0);
+		
+		//chuan wei zhuan yong ...don't forget delete it!!!
+		STEPVR_API void SetHeadOffset(float x,float y,float z);
+		//headoffset_x = 0.114;
+		//headoffset_y = 0;
+		//headoffset_z = -0.12;
 	};
 
 	STEPVR_API enum EulerOrd{

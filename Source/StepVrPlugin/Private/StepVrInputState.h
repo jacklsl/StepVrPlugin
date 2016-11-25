@@ -43,16 +43,6 @@ struct FStepVRCapacitiveKey
 	}
 };
 
-// const FKey FStepVRCapacitiveKey::StepVR_GunBtn_A_Trigger("StepVR_GunBtnA_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_GunBtn_B_Trigger("StepVR_GunBtnB_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_GunBtn_C_Trigger("StepVR_GunBtnC_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_LeftBtn_A_Trigger("StepVR_LeftA_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_LeftBtn_B_Trigger("StepVR_LeftB_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_LeftBtn_C_Trigger("StepVR_LeftC_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_RightBtn_A_Trigger("StepVR_RightA_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_RightBtn_B_Trigger("StepVR_RightB_Press");
-// const FKey FStepVRCapacitiveKey::StepVR_RightBtn_C_Trigger("StepVR_RightC_Press");
-
 const uint8 SButton_Release = (int32)FMath::Pow(2, 0);
 const uint8 SButton_Press = (int32)FMath::Pow(2, 1);
 const uint8 SButton_Repeat = (int32)FMath::Pow(2, 2);
