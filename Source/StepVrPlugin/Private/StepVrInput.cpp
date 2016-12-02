@@ -92,7 +92,7 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 		"StepvrSDK Load Matrix Fail!",
 		"StepvrSDK Open Port Fail!",
 		"StepvrSDK Start Thread Fail!",
-		"StepvrSDK Creat Faild!" };
+		"StepvrSDK Create failed!" };
 
 	StepManager = new StepVR::Manager();
 
@@ -150,6 +150,9 @@ FStepVrInput::~FStepVrInput()
 		delete StepManager;
 		StepManager = nullptr;
 	}
+
+
+	StepVrServer::Destory();
 
 	IModularFeatures::Get().UnregisterModularFeature(GetModularFeatureName(), this);
 }
@@ -281,7 +284,7 @@ bool FStepVrInput::GetControllerOrientationAndPosition(const int32 ControllerInd
 
 void FStepVrInput::StartModule()
 {
-	// Concatenate the plugins folder and the DLL file.
+	// Concatenate the plug-in folder and the DLL file.
 	FString filePath = FPaths::Combine(*FPaths::GamePluginsDir(), TEXT("StepVrPlugin"), TEXT("ThirdParty"), TEXT("lib"));
 
 	FPlatformProcess::PushDllDirectory(*filePath);

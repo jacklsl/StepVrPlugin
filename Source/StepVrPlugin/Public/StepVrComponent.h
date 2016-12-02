@@ -119,11 +119,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
 	bool CalibrateMocap();
 
+	/**
+	*   if you have server manager,you need
+	*   commondList: Command:Ready
+	*/
 	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
-	void SetHeadOffset(float x, float y, float z);
-	//headoffset_x = 0.114;
-	//headoffset_y = 0;
-	//headoffset_z = -0.12;
+	void SendMessageToRemote(const FString Message);
 
 	virtual void BeginPlay() override;
 
@@ -132,17 +133,34 @@ public:
 	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	bool IsEnable();
+
+public:
+	/**
+	* It is not work because the function just for test
+	* Developer Don't need this
+	*/
+	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
+		void SetHeadOffset(float x, float y, float z);
+	//headoffset_x = 0.114;
+	//headoffset_y = 0;
+	//headoffset_z = -0.12;
+
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FStepVRNode CurrentNodeState;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = StepvrLibrary)
 	FStepVRMCapNode MotionCaptuerState;
+
 private:
 	void UpdateMotionCapture();
+
 	void ResetControllPawnRotation();
+
 	void ResetOculusRif();
+
 	void GetHipLocation(FVector& Vec);
+
 	bool IsReset;
 	bool IsMCap;
 	static bool IsResetOculus;

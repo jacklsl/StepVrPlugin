@@ -14,6 +14,14 @@
 #include "LocalDefine.h"
 #include "StepVr.h"
 
+
+/**
+*   StepVr Server
+*/
+#include "StepVrServerInterface.h"
+#include "SocketSubsystem.h"
+#include "StepVrServer.h"
+
 /**
 * Get equipment transform with node id  
 */

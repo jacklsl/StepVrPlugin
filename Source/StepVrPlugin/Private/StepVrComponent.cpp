@@ -9,7 +9,6 @@ UStepVrComponent::UStepVrComponent():
 IsReset(false),
 IsMCap(false)
 {
-	
 	PrimaryComponentTick.bCanEverTick = true;
 	bWantsBeginPlay = true;
 }
@@ -63,6 +62,7 @@ void UStepVrComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	StepVrServer::Get()->SetDelegate(GetOwner());
 }
 
 void UStepVrComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -81,7 +81,6 @@ void UStepVrComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, 
 	}
 
 	UpdateMotionCapture();
-
 	GetNodeTransForm(CurrentNodeState.FLeftHand,StepVrInfo::DLeftController);
 	GetNodeTransForm(CurrentNodeState.FRightHand, StepVrInfo::DRightController);
 	GetNodeTransForm(CurrentNodeState.FHead, StepVrInfo::DHead);
@@ -99,10 +98,11 @@ void UStepVrComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, 
 
 		if (!IsReset)
 		{
-			ResetControllPawnRotation();
+			ResetControllPawnRotation(  );
 			IsReset = true;
 		}
 	}
+
 }
 
 bool UStepVrComponent::GetNodeTransForm(FTransform& ts, int32 equipId) const
@@ -120,6 +120,11 @@ bool UStepVrComponent::CalibrateMocap()
 	StepManager->CalibrateMocap();
 	IsMCap = true;
 	return IsMCap;
+}
+
+void UStepVrComponent::SendMessageToRemote(const FString Message)
+{
+	StepVrServer::Get()->SendMessage(Message);
 }
 
 void UStepVrComponent::SetHeadOffset(float x, float y, float z)

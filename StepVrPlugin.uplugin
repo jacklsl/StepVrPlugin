@@ -11,14 +11,19 @@
   "Installed": false,
   "IsBetaVersion": false,
   "MarketplaceURL": "",
-  "Modules": [
+    "SupportURL": "",
+  "Version": 1,
+  "VersionName": "1.0",
+  "Modules": 
+  [
     {
       "Name": "StepVrPlugin",
       "Type": "RunTime",
-      "LoadingPhase": "Default"
+      "LoadingPhase": "Default",
+	  "WhitelistPlatforms" :
+			[
+				"Win64"
+			]
     }
-  ],
-  "SupportURL": "",
-  "Version": 1,
-  "VersionName": "1.0"
+  ]
 }
