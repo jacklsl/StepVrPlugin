@@ -1,9 +1,5 @@
 #pragma once
-
-
-//GEngine->AddOnScreenDebugMessage(-1,delayTime, FColor::Blue,textConten)
-#define  SHOWLOG(_String_) UE_LOG(LogTemp, Warning, TEXT("%s"),*_String_)
-
+#include "../Launch/Resources/Version.h"
 
 /************************************************************************/
 /* AnimInstance                                                                     */

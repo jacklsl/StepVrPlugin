@@ -14,10 +14,15 @@ public:
 
 	/**
 	*   Get StepVrServer Singleton
-	*	init send socket ,listen socket
+	*   Note:Make sure that StepVrServer Start
 	*/
 	static StepVrServer* Get();
 
+	/**
+	*   Creat socket for send message
+	*	run Start first than Use Get
+	*/
+	static StepVrServer* Start();
 	/**
 	*   Destory StepVrServer Singleton
 	*	clear socket
@@ -26,7 +31,7 @@ public:
 	/**
 	*   send message to server manager
 	*/
-	void SendMessage(const FString Message);
+	void SendMessage(FString Message);
 
 	//set delegate for class IStepVrServerInterface
 	void SetDelegate(UObject* Obj) { Delegate = Obj; }

@@ -1,6 +1,5 @@
 #pragma once
-#include "StepVrPluginPrivatePCH.h"
-//#include "NameTypes.h"
+#include "StepVr.h"
 
 
 enum class EStepVrDeviceId
@@ -13,7 +12,7 @@ enum class EStepVrDeviceId
 	DTotalCount
 };
 
-//regiest key
+//Register KeyName
 struct FStepVRCapacitiveKey
 {
 	FKey StepVR_GunBtn_A_Trigger;
@@ -77,7 +76,7 @@ struct FStepVrStateController
 	FStepVrStateController()
 	{
 
-		//≥ı ºªØ
+		//Init
 		FStepVrButtonState btn;
 
 		Devices[(int32)EStepVrDeviceId::DLeft].EquipId = SDKNODEID((int32)StepVrInfo::DLeftController);

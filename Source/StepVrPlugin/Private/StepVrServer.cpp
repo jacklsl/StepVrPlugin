@@ -21,7 +21,12 @@ StepVrServer::~StepVrServer()
 
 StepVrServer* StepVrServer::Get()
 {
-	if (S_StepVrServer==nullptr)
+	return S_StepVrServer;
+}
+
+StepVrServer* StepVrServer::Start()
+{
+	if (S_StepVrServer == nullptr)
 	{
 		S_StepVrServer = new StepVrServer();
 		S_StepVrServer->InitSendSocket();
@@ -37,8 +42,6 @@ void StepVrServer::Destory()
 	
 	if (S_StepVrServer)
 	{
-		S_StepVrServer->CloseSocket();
-
 		delete S_StepVrServer;
 		S_StepVrServer = nullptr;
 	}
@@ -90,6 +93,7 @@ void StepVrServer::InitListenSocket()
 		.Build();
 	ListenScoket->Listen(10);
 
+
 	/**
 	* Receive Remote Data  
 	*/
@@ -112,10 +116,9 @@ void StepVrServer::InitListenSocket()
 	ReceiveSocket->Start();
 }
 
-void StepVrServer::SendMessage(const FString Message)
+void StepVrServer::SendMessage(FString Message)
 {
-	FString serialized = TEXT("Command:Ready");
-	TCHAR *serializedChar = serialized.GetCharArray().GetData();
+	TCHAR *serializedChar = Message.GetCharArray().GetData();
 	int32 size = FCString::Strlen(serializedChar);
 	int32 sent = 0;
 
@@ -124,21 +127,32 @@ void StepVrServer::SendMessage(const FString Message)
 
 void StepVrServer::CloseSocket()
 {
+	if (ReceiveSocket)
+	{
+		ReceiveSocket->Stop();
+		ReceiveSocket->Exit();
+
+		delete ReceiveSocket;
+		ReceiveSocket = nullptr;
+	}
+
+
 	if (SendScoket)
 	{
 		SendScoket->Close();
 		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(SendScoket);
+
+		SendScoket = nullptr;
 	}
 	if (ListenScoket)
 	{
 		ListenScoket->Close();
 		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(ListenScoket);
+
+		ListenScoket = nullptr;
 	}
-	if (ReceiveSocket)
-	{
-		delete ReceiveSocket;
-		ReceiveSocket = nullptr;
-	}
+
+	UE_LOG(LogStepVrPlugin, Warning, TEXT("StepVrServer Destory£¡"));
 }
 
 void StepVrServer::SendData(const FString & Data)
@@ -154,6 +168,7 @@ void StepVrServer::SendData(const FString & Data)
 			IStepVrServerInterface::Execute_CMDResetHMD(Delegate,Data);
 		}
 
+		//This is log to help you test
 		IStepVrServerInterface::Execute_ReceiveMessage(Delegate, Data);
 	}
 }

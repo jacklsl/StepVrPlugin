@@ -119,13 +119,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
 	bool CalibrateMocap();
 
-	/**
-	*   if you have server manager,you need
-	*   commondList: Command:Ready
-	*/
-	UFUNCTION(BlueprintCallable, Category = StepvrLibrary)
-	void SendMessageToRemote(const FString Message);
-
 	virtual void BeginPlay() override;
 
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;

@@ -38,7 +38,7 @@ public class StepVrPlugin : ModuleRules
 				"Core",
                 "HeadMountedDisplay",
 
-                //和服务器软件通信
+                //Stepvr server need
                 "Sockets",
                 "Networking"
 				// ... add other public dependencies that you statically link with here ...

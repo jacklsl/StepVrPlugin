@@ -2,15 +2,13 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #include "StepVrPluginPrivatePCH.h"
 #include "../../../ThirdParty/include/StepVr.h"
-#include "UnrealMathUtility.h"
 #include "StepVrInput.h"
 
 
 #define LOCTEXT_NAMESPACE "StepVR"
+DEFINE_LOG_CATEGORY(LogStepVrPlugin);
 
 StepVR::Manager* StepManager = nullptr;
-
-
 bool StepManagerIsEnable()
 {
 	return StepManager ? true : false;
@@ -72,11 +70,11 @@ void UpdateVibration(float Intensity, int32 NodeId)
 
 		if (!StepManager->SendVibrateCmd(0, NodeId, DeviceIntensity))
 		{
-			SHOWLOG(FString("Send Faild!"));
+			UE_LOG(LogStepVrPlugin, Warning, TEXT("Send Faild!"));
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("---%f"), DeviceIntensity);
+			UE_LOG(LogStepVrPlugin, Warning, TEXT("DeviceIntensity---%f"), DeviceIntensity);
 		}
 	}
 }
@@ -98,7 +96,7 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 
 	if (!StepManager)
 	{
-		SHOWLOG(StepVRMessage[4]);
+		UE_LOG(LogStepVrPlugin, Error, TEXT("%s"), *StepVRMessage[4]);
 		return;
 	}
 	else
@@ -110,17 +108,16 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 	}
 
 
-	//在对应版本引擎中需要矩阵文件，木有会崩溃
 	//0 is ok, 
 	//1 is load matrix fail, 
 	//2 is open port fail, 
 	//3 is start thread fail.
-	
 	int32 StartID = StepManager->Start();
-	SHOWLOG(StepVRMessage[StartID]);
+	
 
 	if (0 != StartID)
 	{
+		UE_LOG(LogStepVrPlugin, Error, TEXT("%s"), *StepVRMessage[StartID]);
 		delete StepManager;
 		StepManager = nullptr;
 		return;
@@ -136,6 +133,8 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 #if (BEFOPRE_ENGINEVERSION_412)
 	GEngine->MotionControllerDevices.AddUnique(this);
 #endif	
+
+	UE_LOG(LogStepVrPlugin, Warning, TEXT("%s"), *StepVRMessage[StartID]);
 }
 
 FStepVrInput::~FStepVrInput()
@@ -161,7 +160,6 @@ void FStepVrInput::Tick(float DeltaTime)
 {
 
 }
-
 
 bool FStepVrInput::IsGamepadAttached() const
 {
@@ -198,19 +196,19 @@ void FStepVrInput::SendControllerEvents()
 				btnState.PressedState = flag;
 				if (btnState.PressedState == SButton_Release)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("EquipID:%d,Button%c Relese!"),(int32)device.EquipId,ButtonName.GetCharArray()[j]);
+					UE_LOG(LogStepVrPlugin, Warning, TEXT("EquipID:%d,Button%c Relese!"),(int32)device.EquipId,ButtonName.GetCharArray()[j]);
 					MessageHandler->OnControllerButtonReleased(btnState.key, 0, false);
 				}
 				if (btnState.PressedState == SButton_Press)
 				{
-					UE_LOG(LogTemp, Warning, TEXT("EquipID:%d,Button%c Press!"), (int32)device.EquipId, ButtonName.GetCharArray()[j]);
+					UE_LOG(LogStepVrPlugin, Warning, TEXT("EquipID:%d,Button%c Press!"), (int32)device.EquipId, ButtonName.GetCharArray()[j]);
 					MessageHandler->OnControllerButtonPressed(btnState.key, 0, false);
 					btnState.NextRepeatTime = dBtnRepeatTime + CurrentTime;
 				}
 			}
 			if (btnState.PressedState == SButton_Repeat && btnState.NextRepeatTime <= CurrentTime)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("EquipID:%d,Button%c Repeat!"), (int32)device.EquipId, ButtonName.GetCharArray()[j]);
+				UE_LOG(LogStepVrPlugin, Warning, TEXT("EquipID:%d,Button%c Repeat!"), (int32)device.EquipId, ButtonName.GetCharArray()[j]);
 				MessageHandler->OnControllerButtonPressed(btnState.key, 0, false);
 				btnState.NextRepeatTime = dBtnRepeatTime + CurrentTime;
 			}
@@ -230,7 +228,7 @@ bool FStepVrInput::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar)
 
 void FStepVrInput::SetChannelValue(int32 ControllerId, FForceFeedbackChannelType ChannelType, float Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("SetChannelValue---%f"), Value);
+	UE_LOG(LogStepVrPlugin,Warning,TEXT("SetChannelValue---%f"), Value);
 }
 
 void FStepVrInput::SetChannelValues(int32 ControllerId, const FForceFeedbackValues &values)
@@ -291,7 +289,7 @@ void FStepVrInput::StartModule()
 	void *DLLHandle = FPlatformProcess::GetDllHandle(*(filePath + "/StepVr.dll"));
 	if (!DLLHandle)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to load StepVr.dll!"));
+		UE_LOG(LogStepVrPlugin, Error, TEXT("Failed to load StepVr.dll!"));
 	}
 	else
 	{
@@ -302,7 +300,7 @@ void FStepVrInput::StartModule()
 	FPlatformProcess::PopDllDirectory(*filePath);
 	if (!DLLHandle)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to load StepVRSDK.dll!"));
+		UE_LOG(LogStepVrPlugin, Warning, TEXT("Failed to load StepVRSDK.dll!"));
 	}
 	else
 	{
