@@ -29,6 +29,7 @@ class UStepVrBPLibrary : public UBlueprintFunctionLibrary
 	/**
 	*   StepVr server manager
 	*   you must connect before send message to server and receive data
+	*   ReceiveData : obj Must Inherited interface(StepVrServerInterface),Then receive data from Remote
 	*/
 	UFUNCTION(BlueprintCallable,Category = StepvrLibrary)
 	static void SVConnectServer(UObject* ReceiveData);

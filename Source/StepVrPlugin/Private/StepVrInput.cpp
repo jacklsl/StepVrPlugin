@@ -3,6 +3,7 @@
 #include "StepVrPluginPrivatePCH.h"
 #include "../../../ThirdParty/include/StepVr.h"
 #include "StepVrInput.h"
+#include "StringConv.h"
 
 
 #define LOCTEXT_NAMESPACE "StepVR"
@@ -26,13 +27,13 @@ bool GetStepVrNodeTransform(FTransform& Transform,int32 EquipId)
 	//获取位置
 	StepVR::Vector3f vec3 = tmp.GetSingleNode().GetPosition(SDKNODEID(EquipId));
 	vec3 = StepVR::StepVR_EnginAdaptor::toUserPosition(vec3);
-	if (FMath::Abs(vec3.x)>100||
-		FMath::Abs(vec3.y)>100||
-		FMath::Abs(vec3.z)>100)
+	if (FMath::Abs(vec3.x)<10||
+		FMath::Abs(vec3.y)<10||
+		FMath::Abs(vec3.z)<10)
 	{
-		return false;
+		Transform.SetLocation(FVector(vec3.x * 100, vec3.y * 100, vec3.z * 100));
 	}
-	Transform.SetLocation(FVector(vec3.x * 100, vec3.y * 100, vec3.z * 100));
+	
 
 	//通过设备id获取对应的定位信息
 	StepVR::Vector4f vec4 = tmp.GetSingleNode().GetQuaternion(SDKNODEID(EquipId));
@@ -112,8 +113,11 @@ FStepVrInput::FStepVrInput(const TSharedRef<FGenericApplicationMessageHandler>& 
 	//1 is load matrix fail, 
 	//2 is open port fail, 
 	//3 is start thread fail.
-	int32 StartID = StepManager->Start();
-	
+	int32 StartID = StepManager->Start(); 
+	if (1 == StartID)
+	{
+		StartID = StepManager->Start(TCHAR_TO_ANSI(*FString("C:\\TransMat.txt")));
+	}
 
 	if (0 != StartID)
 	{

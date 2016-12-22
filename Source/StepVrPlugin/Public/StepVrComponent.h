@@ -148,7 +148,7 @@ public:
 private:
 	void UpdateMotionCapture();
 
-	void ResetControllPawnRotation();
+	bool ResetControllPawnRotation();
 
 	void ResetOculusRif();
 

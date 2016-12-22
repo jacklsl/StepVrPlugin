@@ -40,12 +40,13 @@ void UStepVrComponent::UpdateMotionCapture()
 	MotionCaptuerState.Head = (MotionCaptuerState.Head.Quaternion()*MotionCaptuerState.Neck.Quaternion()).Rotator();
 }
 
-void UStepVrComponent::ResetControllPawnRotation()
+bool UStepVrComponent::ResetControllPawnRotation()
 {
+	bool Flag = false;
 	APlayerController* APC = UGameplayStatics::GetPlayerController(GWorld, 0);
 	APawn* AP = APC->GetPawn();
 	
-	if (UKismetSystemLibrary::IsValid(AP))
+	if (IsValid(AP))
 	{
 		if (!AP->GetActorRotation().IsZero())
 		{
@@ -53,8 +54,12 @@ void UStepVrComponent::ResetControllPawnRotation()
 		}
 
 		ResetOculusRif();
+
+		Flag = true;
 	}
 
+
+	return Flag;
 }
 
 void UStepVrComponent::BeginPlay()
@@ -84,20 +89,21 @@ void UStepVrComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, 
 	GetNodeTransForm(CurrentNodeState.FGun, StepVrInfo::DGun);
 
 	//reset
-	if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
+	if (GEngine->HMDDevice.IsValid())
 	{
 		//Oculus Has Offset When No Senser
-		FRotator Temp1;
+		FQuat Temp1;
 		FVector  Temp2;
-		UHeadMountedDisplayFunctionLibrary::GetOrientationAndPosition(Temp1, Temp2);
+		GEngine->HMDDevice->GetCurrentOrientationAndPosition(Temp1, Temp2);
+
 		CurrentNodeState.FHeadForOculus.SetLocation(CurrentNodeState.FHead.GetLocation() - Temp2);
 		CurrentNodeState.FHeadForOculus.SetRotation(CurrentNodeState.FHead.GetRotation());
 
 		if (!IsReset)
 		{
-			ResetControllPawnRotation(  );
-			IsReset = true;
+			IsReset = ResetControllPawnRotation();
 		}
+
 	}
 
 }
@@ -139,7 +145,7 @@ void UStepVrComponent::ResetOculusRif()
 		float NewYaw = Yaw + 90.0;
 		NewYaw = NewYaw > 180 ? NewYaw - 360 : NewYaw;
 
-		UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition(NewYaw);
+		GEngine->HMDDevice->ResetOrientationAndPosition(NewYaw);
 		IsResetOculus = true;
 	}
 }
