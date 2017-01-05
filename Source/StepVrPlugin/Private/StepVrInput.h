@@ -15,11 +15,14 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+#if (AFTER_ENGINEVERSION_411)
 	//IHapticDevice* GetHapticDevice() override { return (IHapticDevice*)this; }
 	/**
 	*   unfinished
 	*/
 	virtual bool IsGamepadAttached() const override;
+#endif
+
 
 	/** Poll for controller state and send events if needed */
 	virtual void SendControllerEvents() override;

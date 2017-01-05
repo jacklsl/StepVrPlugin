@@ -165,10 +165,13 @@ void FStepVrInput::Tick(float DeltaTime)
 
 }
 
+#if (AFTER_ENGINEVERSION_411)
 bool FStepVrInput::IsGamepadAttached() const
 {
 	return true;
 }
+#endif
+
 
 void FStepVrInput::SendControllerEvents()
 {
